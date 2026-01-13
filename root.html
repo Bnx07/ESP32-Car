@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP CONTROLLER</title>
+</head>
+<body>
+    <div>
+        <h1>ESP CONTROLLER</h1>
+        <div class="button" onclick="ledOn()">Prender LED</div>
+        <div class="button" onclick="ledOff()">Apagar LED</div>
+        <p id="ledStatus">OFF</p>
+    </div>
+</body>
+<script>
+let ledStatus = document.getElementById('ledStatus');
+function ledOn() {
+    fetch('/led/on').then(response => checkLedStatus())
+}
+function ledOff() {
+    fetch('/led/off').then(response => checkLedStatus())
+}
+function checkLedStatus() {
+    fetch('/led/status').then(response => response.text()).then(text => ledStatus.innerHTML = text);
+}
+checkLedStatus();
+</script>
+</html>
