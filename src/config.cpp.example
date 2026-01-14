@@ -1,0 +1,5 @@
+#include <WiFi_config.h>
+
+const char* PASSWORD = "ESP32-Access-Point-Test";
+const char* SSID = "12345679";
+const bool AP = true;

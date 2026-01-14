@@ -2,6 +2,7 @@
 #include <WiFi.h>
 #include <WebServer.h>
 #include <ESPmDNS.h>
+#include <WiFi_config.h>
 
 const char* ssid     = "ESP32-Access-Point-Test"; // ? No clue why its char*
 const char* password = "123456789"; // ? No clue why its char*
@@ -72,15 +73,18 @@ void setup(void) {
     pinMode(PinLed, OUTPUT);
     digitalWrite(PinLed, 0);
     Serial.begin(115200);
-    // WiFi.mode(WIFI_STA); // ? WiFi Station (client that connects to a network)
-    WiFi.mode(WIFI_AP); // ? WiFi Access Point
-    // WiFi.begin(ssid, password); // ? It basically is "connect to this network with this password", doesn't create a network
-    WiFi.softAP(ssid, password); // ? Sets the SSID and password of the AP
-
-    // ? This was basically a while it's not connected, retry
-    // while (WiFi.status() != WL_CONNECTED) {
-    //     delay(500);
-    // }
+    if (AP) {
+        WiFi.mode(WIFI_AP); // ? WiFi Access Point
+        WiFi.softAP(SSID, PASSWORD); // ? Sets the SSID and password of the AP
+    } else {
+        WiFi.mode(WIFI_STA); // ? WiFi Station (client that connects to a network)
+        WiFi.begin(SSID, PASSWORD); // ? It basically is "connect to this network with this password", doesn't create a network
+        
+        // ? While it's not connected, retry
+        while (WiFi.status() != WL_CONNECTED) {
+            delay(500);
+        }
+    }
 
     if (MDNS.begin("esp32")) {
         Serial.println("MDNS responder started");
