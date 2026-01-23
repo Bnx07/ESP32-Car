@@ -5,6 +5,10 @@ This project is a learning-oriented ESP32 application whose final goal is to bui
 
 The ESP32 hosts a web server that allows controlling sensors and actuators in real time through a browser interface.
 
+## Author
+
+- [@Bnx07](https://github.com/Bnx07)
+
 ## Project Goals
 
 ### Learning Goals
@@ -38,28 +42,39 @@ These goals focus on learning how to use each individual component:
 - Hardware configuration is isolated in a private `config.cpp` file
 - Sensor readings are exposed through simple HTTP endpoints
 
-## Repository Structure
-├── docs/               # Schematics, wiring diagrams and documentation
-├── include/            # Header files
-├── lib/                # External libraries (currently unused)
+### Repository Structure
+```markdown
+├── docs/                   # Schematics, wiring diagrams and documentation
+├── include/                # Header files
+├── lib/                    # External libraries (currently unused)
 ├── src/
 │   ├── config.cpp.example  # Configuration template
 │   ├── config.cpp          # Private configuration (not tracked)
 │   └── main.cpp            # Main application
-├── test/               # Reserved for future tests
-└── root.html           # Standalone HTML file for local web UI development
+├── test/                   # Reserved for future tests
+└── root.html               # Standalone HTML file for local web UI development
+```
 
-## Configuration
+### HTTP Endpoints
+
+- **GET** `/led/on`  
+  Turns the LED on and returns "led on" as plain text
+
+- **GET** `/led/off`  
+  Turns the LED off and returns "led off" as plain text
+
+- **GET** `/sonar/shoot`  
+  Triggers an ultrasonic measurement and returns the distance in centimeters as plain text.
+
+### Configuration
 Before compiling, create a `config.cpp` file based on `config.cpp.example` and fill in the required credentials and configuration values.
 
-This file is intentionally not tracked by Git.
-
-## Notes & Limitations
+This file is intentionally not tracked by Git.## Notes & Limitations
 - The HC-SR04 is temporarily powered at 3.3V due to the absence of a voltage divider on the ECHO pin
 - Echo signal level shifting is not implemented yet
 
 ## Roadmap
-- [ ] Servo-based radar
-- [ ] Motor driver integration
-- [ ] Web UI improvements
-- [ ] JSON API responses
+- [ ]  Servo-based radar
+- [ ]  Motor driver integration
+- [ ]  Web UI improvements
+- [ ]  JSON API responses
